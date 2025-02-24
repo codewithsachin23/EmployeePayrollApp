@@ -2,10 +2,9 @@ package com.bridgelabz.employeepayrollapp.service;
 
 import com.bridgelabz.employeepayrollapp.DTO.EmployeeDTO;
 import com.bridgelabz.employeepayrollapp.model.Employee;
-import org.springframework.web.bind.annotation.PathVariable;
+
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 public interface EmployeeService {

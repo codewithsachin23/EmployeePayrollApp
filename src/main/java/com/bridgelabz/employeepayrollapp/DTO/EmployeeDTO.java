@@ -12,6 +12,7 @@ public class EmployeeDTO {
         this.salary = salary;
     }
 
+
     // Getters & Setters
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
