@@ -1,5 +1,6 @@
 package com.bridgelabz.employeepayrollapp.controllers;
 
+import com.bridgelabz.employeepayrollapp.DTO.EmployeeDTO;
 import com.bridgelabz.employeepayrollapp.model.Employee;
 import com.bridgelabz.employeepayrollapp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,10 @@ public class EmployeeControllers {
         return employeeRepository.findAll();
     }
     @PostMapping
-    public String create(@RequestBody Employee employee){
+    public String create(@RequestBody EmployeeDTO employeeDTO){
+        Employee employee = new Employee();
+        employee.setName(employeeDTO.getName());
+        employee.setSalary(employeeDTO.getSalary());
         employeeRepository.save(employee);
         return "employee created";
     }
@@ -29,12 +33,12 @@ public class EmployeeControllers {
     }
 
     @PutMapping("/{id}")
-    public String update(@PathVariable long id,@RequestBody Employee detailsemployee){
+    public String update(@PathVariable long id,@RequestBody Employee employeeDTO){
         Optional<Employee> optionalEmployee=employeeRepository.findById(id);
         if (optionalEmployee.isPresent()){
-            Employee employee=optionalEmployee.get();
-            employee.setName(detailsemployee.getName());
-            employee.setSalary(detailsemployee.getSalary());
+            Employee employee = new Employee();
+            employee.setName(employeeDTO.getName());
+            employee.setSalary(employeeDTO.getSalary());
             employeeRepository.save(employee);
         }
         return "Done";
