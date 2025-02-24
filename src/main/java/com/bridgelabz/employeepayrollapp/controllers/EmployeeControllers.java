@@ -2,7 +2,7 @@ package com.bridgelabz.employeepayrollapp.controllers;
 
 import com.bridgelabz.employeepayrollapp.DTO.EmployeeDTO;
 import com.bridgelabz.employeepayrollapp.model.Employee;
-import com.bridgelabz.employeepayrollapp.repository.EmployeeRepository;
+import com.bridgelabz.employeepayrollapp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,43 +13,31 @@ import java.util.Optional;
 @RequestMapping("/EmployeeApp")
 public class EmployeeControllers {
     @Autowired
-    EmployeeRepository employeeRepository;
-
+    EmployeeService employeeService;
     @GetMapping
     public List<Employee> getEmployee(){
-        return employeeRepository.findAll();
+
+        return employeeService.getEmployee();
     }
     @PostMapping
     public String create(@RequestBody EmployeeDTO employeeDTO){
-        Employee employee = new Employee();
-        employee.setName(employeeDTO.getName());
-        employee.setSalary(employeeDTO.getSalary());
-        employeeRepository.save(employee);
-        return "employee created";
+       return employeeService.create(employeeDTO);
     }
     @GetMapping("/{id}")
     public Optional<Employee> findById(@PathVariable long id){
-        return employeeRepository.findById(id);
+        return employeeService.getByID(id);
     }
 
     @PutMapping("/{id}")
-    public String update(@PathVariable long id,@RequestBody Employee employeeDTO){
-        Optional<Employee> optionalEmployee=employeeRepository.findById(id);
-        if (optionalEmployee.isPresent()){
-            Employee employee = new Employee();
-            employee.setName(employeeDTO.getName());
-            employee.setSalary(employeeDTO.getSalary());
-            employeeRepository.save(employee);
-        }
-        return "Done";
+    public String update(@PathVariable long id,@RequestBody EmployeeDTO employeeDTO){
+       return employeeService.update(id,employeeDTO);
 
     }
 
     @DeleteMapping("/{id}")
 
     public void deleteByID(@PathVariable long id){
-        employeeRepository.deleteById(id);
-
+        employeeService.deleteById(id);
     }
 
 }
