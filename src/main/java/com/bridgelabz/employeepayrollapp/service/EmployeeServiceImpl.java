@@ -22,11 +22,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
    public String create(EmployeeDTO employeeDTO){
         Employee employee=new Employee();
-        employee.setName(employeeDTO.getName());
+       log.info("new Employee added");
+       employee.setName(employeeDTO.getName());
         employee.setSalary(employeeDTO.getSalary());
         employeeRepository.save(employee);
-        log.info("new Employee added");
-        return "Created new Employee";
+       log.debug("Saved employee: {}", employee);
+
+       return "Created new Employee";
     }
     public Optional<Employee> getByID(Long id){
         log.info("Getting Employee Details based on ID");
