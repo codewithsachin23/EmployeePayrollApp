@@ -1,6 +1,7 @@
 package com.bridgelabz.employeepayrollapp.service;
 
 import com.bridgelabz.employeepayrollapp.DTO.EmployeeDTO;
+import com.bridgelabz.employeepayrollapp.coustomexception.UserNotFoundException;
 import com.bridgelabz.employeepayrollapp.model.Employee;
 import com.bridgelabz.employeepayrollapp.repository.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +31,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
        return "Created new Employee";
     }
-    public Optional<Employee> getByID(Long id){
-        log.info("Getting Employee Details based on ID");
-        return employeeRepository.findById(id);
+    public Optional<Employee> getByID(Long id)throws UserNotFoundException{
+              log.info("Getting Employee Details based on ID");
+              Optional<Employee> employee=  employeeRepository.findById(id);
+              if (employee.isPresent()){
+                  return employee;
+              }else {
+                  throw new UserNotFoundException("User not exit with id"+id);
+              }
     }
     public String update(Long id,EmployeeDTO employeeDTO){
         Optional<Employee>optionalEmployee=employeeRepository.findById(id);

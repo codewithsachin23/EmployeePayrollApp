@@ -1,6 +1,7 @@
 package com.bridgelabz.employeepayrollapp.controllers;
 
 import com.bridgelabz.employeepayrollapp.DTO.EmployeeDTO;
+import com.bridgelabz.employeepayrollapp.coustomexception.UserNotFoundException;
 import com.bridgelabz.employeepayrollapp.model.Employee;
 import com.bridgelabz.employeepayrollapp.service.EmployeeService;
 import jakarta.validation.Valid;
@@ -26,7 +27,7 @@ public class EmployeeControllers {
        return employeeService.create(employeeDTO);
     }
     @GetMapping("/{id}")
-    public Optional<Employee> findById(@PathVariable long id){
+    public Optional<Employee> findById(@PathVariable long id) throws UserNotFoundException {
         return employeeService.getByID(id);
     }
 
