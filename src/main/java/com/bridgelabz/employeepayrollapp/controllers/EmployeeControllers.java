@@ -3,6 +3,7 @@ package com.bridgelabz.employeepayrollapp.controllers;
 import com.bridgelabz.employeepayrollapp.DTO.EmployeeDTO;
 import com.bridgelabz.employeepayrollapp.model.Employee;
 import com.bridgelabz.employeepayrollapp.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class EmployeeControllers {
         return employeeService.getEmployee();
     }
     @PostMapping
-    public String create(@RequestBody EmployeeDTO employeeDTO){
+    public String create(@RequestBody @Valid EmployeeDTO employeeDTO){
        return employeeService.create(employeeDTO);
     }
     @GetMapping("/{id}")
@@ -30,7 +31,7 @@ public class EmployeeControllers {
     }
 
     @PutMapping("/{id}")
-    public String update(@PathVariable long id,@RequestBody EmployeeDTO employeeDTO){
+    public String update(@PathVariable long id,@RequestBody @Valid EmployeeDTO employeeDTO){
        return employeeService.update(id,employeeDTO);
 
     }
