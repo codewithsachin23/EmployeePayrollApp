@@ -1,9 +1,13 @@
 package com.bridgelabz.employeepayrollapp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -15,8 +19,17 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "Name should not be empty or null")
     private String name;
-    @Min(value = 10000, message = "Salary must be at least 10,000")
+    private String profilePic;
+    private String gender;
+
+    @ElementCollection
+    private List<String> departments;
+
     private double salary;
+
+    @JsonFormat(pattern = "dd MMM yyyy")
+    private LocalDate startDate;
+
+    private String note;
 }

@@ -6,6 +6,7 @@ import com.bridgelabz.employeepayrollapp.model.Employee;
 import com.bridgelabz.employeepayrollapp.service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class EmployeeControllers {
         return employeeService.getEmployee();
     }
     @PostMapping
-    public String create(@RequestBody @Valid EmployeeDTO employeeDTO){
+    public ResponseEntity<Employee> create(@RequestBody @Valid EmployeeDTO employeeDTO){
        return employeeService.create(employeeDTO);
     }
     @GetMapping("/{id}")
